@@ -1,5 +1,5 @@
 import { request } from "http";
-import { MyLogger } from "../StreamExample/utils";
+import { MyLogger } from "../EventEmitterExmaple/utils";
 
 const logger = new MyLogger();
 
@@ -22,13 +22,14 @@ const req = request(options, (res) => {
   res.setEncoding("utf-8");
 
   res.on("data", (chunk) => {
-    logger.info(chunk);
+    logger.info(`res data: ${chunk}`);
   });
 
   res.on("end", () => {
-    logger.info("end");
+    logger.info("res end");
   });
 });
 
 req.write(postData);
 req.end();
+logger.info("send to server");
